@@ -46,7 +46,7 @@ router.route('/')
                     name : result.name,
                     price : result.price,
                     _id : result._id,
-                    return : {
+                    request : {
                         type : 'GET',
                         url : 'http://localhost:3000/products/' + result._id
                     }
@@ -56,7 +56,7 @@ router.route('/')
             console.log(err);
             res.status(500).json({ error: err });
         });
-    })
+    });
 
 router.route('/:productId')
     .get(function (req, res) {
