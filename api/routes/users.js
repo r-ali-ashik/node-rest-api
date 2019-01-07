@@ -86,8 +86,7 @@ router.route('/login')
                         });
                     }
                     if (result) {
-                        const token = jwt.sign(
-                            {
+                        const token = jwt.sign({
                                 email: users[0].email,
                                 userId: users[0]._id
                             },
@@ -97,7 +96,7 @@ router.route('/login')
                         );
 
                         res.status(200).json({
-                            token : token,
+                            token: token,
                             message: 'Auth successful'
                         });
                     } else {
