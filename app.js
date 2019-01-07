@@ -10,6 +10,7 @@ const orderRoutes = require('./api/routes/orders');
 mongoose.connect('mongodb://172.17.0.2:27017/test',  { useNewUrlParser: true });
 
 app.use(morgan('dev'));
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 

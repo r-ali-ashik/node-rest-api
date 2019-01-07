@@ -104,17 +104,15 @@ router.route('/:orderId')
             });
     })
     .delete(function (req, res) {
-        Order.remove({
-            _id: req.params.orderId
-        })
+        Order.remove({ _id: req.params.orderId })
             .exec()
             .then(result => {
                 result.status(200).json({
-                    message : 'Order deleteted',
+                    message: 'Order deleteted',
                     request: {
                         type: 'POST',
                         url: 'http://localhost:3000/orders',
-                        body : {productId : 'String', quantity : 'Number'}
+                        body: { productId: 'String', quantity: 'Number' }
                     }
                 });
             })
