@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const app = express();
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
-const userRoutes = require('./api/routes/users');
+const userRoute = require('./api/routes/users');
 
 mongoose.connect('mongodb://172.17.0.2:27017/test',  { useNewUrlParser: true });
 
@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
-app.use('/users', userRoutes);
+app.use('/user', userRoute);
 
 app.use(function(req, res, next) {
     const error = new Error('Not found');

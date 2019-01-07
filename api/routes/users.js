@@ -47,19 +47,60 @@ router.route('/sign-up')
             })
     });
 
-    router.route('/:userid')
-        .delete(function(req, res) {
-            User.remove({_id : req.params.userId})
-                .exec()
-                .then(result => {
-                    res.status(200).json({
-                        message : 'user deleted'
-                    })
+router.route('/:userid')
+    .delete(function (req, res) {
+        User.remove({
+                _id: req.params.userId
+            })
+            .exec()
+            .then(result => {
+                res.status(200).json({
+                    message: 'user deleted'
                 })
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).json({error : err});
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
                 });
-        });
+            });
+    });
+
+router.route('/login')
+    .post(function (req, res) {
+        User.find({
+                email: req.body.email
+            })
+            .exec()
+            .then(users => {
+                if (users.length < 1) {
+                    res.status(401).json({
+                        message: 'Auth failed'
+                    })
+                }
+                bcrypt.compare(req.body.password, users[0].password, (err, result) => {
+                    if (err) {
+                        res.status(401).json({
+                            message: 'Auth failed'
+                        });
+                    }
+                    if (result) {
+                        res.status(200).json({
+                            message: 'Auth successful'
+                        });
+                    } else {
+                        res.status(401).json({
+                            message: 'Auth failed'
+                        });
+                    }
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            })
+    })
 
 module.exports = router;
