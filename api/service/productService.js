@@ -72,6 +72,7 @@ exports.createProduct = function (req, res) {
             createdProduct: {
                 name: result.name,
                 price: result.price,
+                productImage : result.productImage,
                 _id: result._id,
                 request: {
                     type: 'GET',
