@@ -119,7 +119,7 @@
                     "description": "Create a new product",
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "$ref": "#/components/schemas/Product"
                             }
@@ -341,7 +341,8 @@
             "Product": {
                 "required": [
                     "name",
-                    "price"
+                    "price",
+                    "productImage"
                 ],
                 "properties": {
                     "name": {
@@ -349,6 +350,9 @@
                     },
                     "price": {
                         "type": "number"
+                    },
+                    "productImage" : {
+                        "type" : "file"
                     }
                 },
                 "type": "object"

@@ -1,13 +1,7 @@
 const mongoose = require('mongoose');
+const Product = require('../models/product');
+
 const multer = require('multer');
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, new Date().toISOString() + file.originalname)
-    }
-});
 const fileFilter = function (req, file, cb) {
     // reject a file cb(null, false);
     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') {
@@ -16,6 +10,14 @@ const fileFilter = function (req, file, cb) {
         cb(new Error('doesn\'t support ' + file.mimetype + ' type'), false);
     }
 }
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, new Date().toISOString() + file.originalname)
+    }
+});
 const upload = multer({
     storage: storage,
     limits: {
@@ -23,8 +25,6 @@ const upload = multer({
     },
     fileFilter: fileFilter
 });
-
-const Product = require('../models/product');
 
 exports.getProducts = function (req, res) {
     Product.find()
@@ -56,37 +56,36 @@ exports.getProducts = function (req, res) {
         })
 }
 
-exports.createProduct = upload.single('productImage'),
-    function (req, res) {
+exports.createProduct = function (req, res) {
 
-        const product = new Product({
-            _id: mongoose.Types.ObjectId(),
-            name: req.body.name,
-            price: req.body.price,
-            productImage: req.file.path
-        });
+    const product = new Product({
+        _id: mongoose.Types.ObjectId(),
+        name: req.body.name,
+        price: req.body.price,
+        productImage: req.file.path
+    });
 
-        product.save().then(result => {
-            console.log(result);
-            res.status(201).json({
-                message: 'Created product successfully',
-                createdProduct: {
-                    name: result.name,
-                    price: result.price,
-                    _id: result._id,
-                    request: {
-                        type: 'GET',
-                        url: 'http://localhost:3000/products/' + result._id
-                    }
+    product.save().then(result => {
+        console.log(result);
+        res.status(201).json({
+            message: 'Created product successfully',
+            createdProduct: {
+                name: result.name,
+                price: result.price,
+                _id: result._id,
+                request: {
+                    type: 'GET',
+                    url: 'http://localhost:3000/products/' + result._id
                 }
-            });
-        }).catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
-            });
+            }
         });
-    }
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error: err
+        });
+    });
+}
 
 exports.getProduct = function (req, res) {
     const id = req.params.productId;
@@ -172,3 +171,5 @@ exports.deleteProduct = function (req, res) {
             })
         });
 }
+
+exports.uploadSingleFile = upload.single('productImage');
