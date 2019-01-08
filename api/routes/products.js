@@ -6,7 +6,7 @@ const productService = require('../service/productService');
 
 const router = express.Router();
 
-const Product = require('../models/product');
+
 
 router.route('/')
     .get(productService.getProducts)
@@ -16,6 +16,5 @@ router.route('/:productId')
     .get(productService.getProduct)
     .patch(checkAuth, productService.updateProduct)
     .delete(checkAuth, productService.deleteProduct);
-
 
 module.exports = router;

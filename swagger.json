@@ -68,6 +68,11 @@
         },
         "/user/{userId}": {
             "delete": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "user"
                 ],
@@ -101,6 +106,11 @@
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "product"
                 ],
@@ -145,6 +155,11 @@
                 }
             },
             "patch": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "product"
                 ],
@@ -165,6 +180,11 @@
                 }
             },
             "delete": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "product"
                 ],
@@ -188,6 +208,11 @@
 
         "/orders": {
             "get": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "order"
                 ],
@@ -199,6 +224,11 @@
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "order"
                 ],
@@ -224,6 +254,11 @@
 
         "/orders/{orderId}": {
             "get": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "order"
                 ],
@@ -245,6 +280,11 @@
             },
         
             "delete": {
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "tags": [
                     "order"
                 ],
@@ -313,7 +353,14 @@
                 },
                 "type": "object"
             }
-        }
+        },
+        "securitySchemes": {
+			"bearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		}
     },
     "tags": [
         {
