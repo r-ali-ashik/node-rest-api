@@ -1,0 +1,336 @@
+{
+    "openapi": "3.0.0",
+    "host": "http://localhost:3000",
+    "basePath": "/",
+    "info": {
+        "title": "Demo API",
+        "description": "Manage demo project",
+        "termsOfService": "http://example.io/terms/",
+        "contact": {
+            "email": "apiteam@example.io"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Server"
+        }
+    ],
+    "paths": {
+        "/user/sign-up": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "operationId": "singUp",
+                "requestBody": {
+                    "description": "Create a new User",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User created"
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "operationId": "login",
+                "requestBody": {
+                    "description": "Login in hte system",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login Successful"
+                    }
+                }
+            }
+        },
+        "/user/{userId}": {
+            "delete": {
+                "tags": [
+                    "user"
+                ],
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "unique id for user",
+                        "required": true,
+                        "schema": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User deleted"
+                    }
+                }
+            }
+        },
+        "/products": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "operationId": "getProducts",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "product"
+                ],
+                "operationId": "createProduct",
+                "requestBody": {
+                    "description": "Create a new product",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Product"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                }
+            }
+        },
+        "/products/{productId}": {
+            "get": {
+                "tags": [
+                    "product"
+                ],
+                "operationId": "getProduct",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "unique id for a Product",
+                        "required": true,
+                        "schema": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "product"
+                ],
+                "operationId": "updateProduct",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "unique id for a Product",
+                        "required": true,
+                        "schema": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "product"
+                ],
+                "operationId": "deleteProduct",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "unique id for a Product",
+                        "required": true,
+                        "schema": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                }
+            }
+        },
+
+        "/orders": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "operationId": "getOrders",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "operationId": "createOrder",
+                "requestBody": {
+                    "description": "Create a new order",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Order"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                }
+            }
+        },
+
+        "/orders/{orderId}": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "operationId": "getOrder",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "unique id for a Order",
+                        "required": true,
+                        "schema": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                }
+            },
+        
+            "delete": {
+                "tags": [
+                    "order"
+                ],
+                "operationId": "deleteOrder",
+                "parameters": [
+                    {
+                        "name": "orderId",
+                        "in": "path",
+                        "description": "unique id for a Product",
+                        "required": true,
+                        "schema": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Order": {
+                "required": [
+                    "productId",
+                    "quantity"
+                ],
+                "properties": {
+                    "productId": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Product": {
+                "required": [
+                    "name",
+                    "price"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "user",
+            "description": "Deal with User sign-up login"
+        },
+        {
+            "name": "product",
+            "description": "Deal with Product"
+        },
+        {
+            "name": "order",
+            "description": "Deal with Order"
+        }
+    ],
+    "externalDocs": {
+        "description": "Find out more about demoAPI",
+        "url": "http://example.io"
+    }
+}
